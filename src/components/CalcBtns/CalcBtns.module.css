@@ -1,0 +1,17 @@
+:root {
+    --gap: 3px;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+}
+
+.button {
+    flex-basis: calc((100% / 4) - (var(--gap) * (3 / 4)));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
