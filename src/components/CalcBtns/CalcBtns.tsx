@@ -8,7 +8,7 @@ interface CalcBtnsProps {
     isOnlyZero: boolean
 }
 
-export default function CalcBtns({ onClick, isTextDisplay, isAComma, isACommaAtTheEnd, isOnlyZero }: CalcBtnsProps) {
+export default function CalcBtns({ onClick, isTextDisplay, /*isAComma,*/ isACommaAtTheEnd, isOnlyZero }: CalcBtnsProps) {
     return (
         <div className={css.buttons}>
             <button type="button" onClick={onClick} id="left-bracket"
