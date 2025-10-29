@@ -268,7 +268,7 @@ export default function App() {
       <CalcBtns
         onClick={handleClick}
         isTextDisplay={displayText.length > 0}
-        isAComma={displayText.includes(",")}
+        isAComma={displayText === ","}
         isACommaAtTheEnd={displayText[displayText.length - 1] === ","}
         isOnlyZero={displayText === "0"}
       />
