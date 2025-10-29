@@ -221,7 +221,7 @@ export default function App() {
       //#region ,'s entered.
       case "comma":
         // Comma cannot be entered when displayText is empty or after ",()%/×\-+", also a number can have only one comma.
-        if (/^$|(\d,\d+|[,()%/×\-+])(?!.*[()%/×\-+\d])/.test(displayText))
+        if (/^$|([,()%/×\-+]|\d,\d+)(?!.*[()%/×\-+\d])/.test(displayText))
           break;
 
         setDisplayText(displayText + ",");
