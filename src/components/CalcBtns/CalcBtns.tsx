@@ -3,12 +3,11 @@ import css from "./CalcBtns.module.css";
 interface CalcBtnsProps {
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
     isTextDisplay: boolean,
-    isAComma: boolean,
     isACommaAtTheEnd: boolean,
     isOnlyZero: boolean
 }
 
-export default function CalcBtns({ onClick, isTextDisplay, /*isAComma,*/ isACommaAtTheEnd, isOnlyZero }: CalcBtnsProps) {
+export default function CalcBtns({ onClick, isTextDisplay, isACommaAtTheEnd, isOnlyZero }: CalcBtnsProps) {
     interface BtnProps {
         id: string,
         content: string,

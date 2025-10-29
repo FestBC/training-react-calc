@@ -5,7 +5,5 @@ interface CalcDisplayProps {
 }
 
 export default function CalcDisplay({ text }: CalcDisplayProps) {
-    return (
-        <p className={css.text}>{text}</p>
-    );
+    return <p className={css.text}>{text}</p>;
 }

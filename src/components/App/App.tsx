@@ -9,9 +9,7 @@ export default function App() {
   const [displayText, setDisplayText] = useState("");
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    const elem = event.target as HTMLButtonElement;
-
-    switch (elem.id) {
+    switch ((event.target as HTMLButtonElement).id) {
       //#region Numbers.
 
       //#region 0's entered.
@@ -222,17 +220,9 @@ export default function App() {
 
       //#region ,'s entered.
       case "comma":
-        if (displayText === "" ||
-          displayText.includes("(", displayText.length - 1) ||
-          displayText.includes(")", displayText.length - 1) ||
-          displayText.includes("%", displayText.length - 1) ||
-          displayText.includes("/", displayText.length - 1) ||
-          displayText.includes("×", displayText.length - 1) ||
-          displayText.includes("-", displayText.length - 1) ||
-          displayText.includes("+", displayText.length - 1) ||
-          displayText.includes(",", displayText.length - 1)) {
+        // Comma cannot be entered after ",()%/×\-+", also a number can have only one comma.
+        if (/^$|(\d,\d+|[,()%/×\-+])(?!.*[()%/×\-+\d])/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + ",");
         break;
@@ -259,7 +249,7 @@ export default function App() {
       //#endregion
     }
 
-    console.log(elem.id);
+    console.log((event.target as HTMLButtonElement).id);
   }
 
   return (
@@ -268,7 +258,6 @@ export default function App() {
       <CalcBtns
         onClick={handleClick}
         isTextDisplay={displayText.length > 0}
-        isAComma={displayText === ","}
         isACommaAtTheEnd={displayText[displayText.length - 1] === ","}
         isOnlyZero={displayText === "0"}
       />
