@@ -14,9 +14,9 @@ export default function App() {
 
       //#region 0's entered.
       case "n0":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 0 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "0");
         break;
@@ -24,9 +24,9 @@ export default function App() {
       
       //#region 1's entered.
       case "n1":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 1 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "1");
         break;
@@ -34,9 +34,9 @@ export default function App() {
 
       //#region 2's entered.
       case "n2":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 2 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "2");
         break;
@@ -44,9 +44,9 @@ export default function App() {
 
       //#region 3's entered.
       case "n3":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 3 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "3");
         break;
@@ -54,9 +54,9 @@ export default function App() {
 
       //#region 4's entered.
       case "n4":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 4 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "4");
         break;
@@ -64,9 +64,9 @@ export default function App() {
 
       //#region 5's entered.
       case "n5":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 5 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "5");
         break;
@@ -74,9 +74,9 @@ export default function App() {
 
       //#region 6's entered.
       case "n6":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 6 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "6");
         break;
@@ -84,9 +84,9 @@ export default function App() {
 
       //#region 7's entered.
       case "n7":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 7 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "7");
         break;
@@ -94,9 +94,9 @@ export default function App() {
 
       //#region 8's entered.
       case "n8":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 8 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "8");
         break;
@@ -104,9 +104,9 @@ export default function App() {
 
       //#region 9's entered.
       case "n9":
-        if (displayText[0] === "0" && !displayText.includes("0,")) {
+        // 9 cannot be entered when a next number is just 0 without a comma.
+        if (/(?<!,)\b0\b(?!,)/.test(displayText))
           break;
-        }
 
         setDisplayText(displayText + "9");
         break;
@@ -124,12 +124,10 @@ export default function App() {
 
       //#region )'s entered.
       case "right-bracket":
-        if (displayText === "" ||
-          displayText.slice(displayText.lastIndexOf("(")).length === 1 ||
-          displayText.slice(displayText.lastIndexOf("(")) === "(-" ||
-          (displayText.split("(").length - 1) - (displayText.split(")").length - 1) === 0) {
+        // Right bracket cannot be entered when displayText is empty, after "(%/×-+," or when amount of ( and ) are the same.
+        if (/^$|[(%/×\-+,]$/.test(displayText) ||
+          displayText.split("(").length - displayText.split(")").length === 0)
           break;
-        }
         
         setDisplayText(displayText + ")");
         break;
@@ -137,16 +135,9 @@ export default function App() {
       
       //#region %'s entered.
       case "module":
-        if (displayText === "" ||
-          displayText.includes("(", displayText.length - 1) ||
-          displayText.includes("%", displayText.length - 1) ||
-          displayText.includes("/", displayText.length - 1) ||
-          displayText.includes("×", displayText.length - 1) ||
-          displayText.includes("-", displayText.length - 1) ||
-          displayText.includes("+", displayText.length - 1) ||
-          displayText.includes(",", displayText.length - 1)) {
+        // Module symbol cannot be entered when displayText is empty or after "(%/×-+,".
+        if (/^$|[(%/×\-+,]$/.test(displayText))
           break;
-        }
         
         setDisplayText(displayText + "%");
         break;
@@ -154,16 +145,9 @@ export default function App() {
 
       //#region /'s entered.
       case "divide":
-        if (displayText === "" ||
-          displayText.includes("(", displayText.length - 1) ||
-          displayText.includes("%", displayText.length - 1) ||
-          displayText.includes("/", displayText.length - 1) ||
-          displayText.includes("×", displayText.length - 1) ||
-          displayText.includes("-", displayText.length - 1) ||
-          displayText.includes("+", displayText.length - 1) ||
-          displayText.includes(",", displayText.length - 1)) {
+        // Divide symbol cannot be entered when displayText is empty or after "(%/×-+,".
+        if (/^$|[(%/×\-+,]$/.test(displayText))
           break;
-        }
         
         setDisplayText(displayText + "/");
         break;
@@ -171,16 +155,9 @@ export default function App() {
 
       //#region ×'s entered.
       case "multiply":
-        if (displayText === "" ||
-          displayText.includes("(", displayText.length - 1) ||
-          displayText.includes("%", displayText.length - 1) ||
-          displayText.includes("/", displayText.length - 1) ||
-          displayText.includes("×", displayText.length - 1) ||
-          displayText.includes("-", displayText.length - 1) ||
-          displayText.includes("+", displayText.length - 1) ||
-          displayText.includes(",", displayText.length - 1)) {
+        // Multiply symbol cannot be entered when displayText is empty or after "(%/×-+,".
+        if (/^$|[(%/×\-+,]$/.test(displayText))
           break;
-        }
         
         setDisplayText(displayText + "×");
         break;
@@ -188,14 +165,9 @@ export default function App() {
 
       //#region -'s entered.
       case "minus":
-        if (displayText.includes("%", displayText.length - 1) ||
-          displayText.includes("/", displayText.length - 1) ||
-          displayText.includes("×", displayText.length - 1) ||
-          displayText.includes("-", displayText.length - 1) ||
-          displayText.includes("+", displayText.length - 1) ||
-          displayText.includes(",", displayText.length - 1)) {
+        // Minus cannot be entered when displayText is empty or after "%/×-+,".
+        if (/[%/×\-+,]$/.test(displayText))
           break;
-        }
         
         setDisplayText(displayText + "-");
         break;
@@ -203,16 +175,9 @@ export default function App() {
 
       //#region +'s entered.
       case "plus":
-        if (displayText === "" ||
-          displayText.includes("(", displayText.length - 1) ||
-          displayText.includes("%", displayText.length - 1) ||
-          displayText.includes("/", displayText.length - 1) ||
-          displayText.includes("×", displayText.length - 1) ||
-          displayText.includes("-", displayText.length - 1) ||
-          displayText.includes("+", displayText.length - 1) ||
-          displayText.includes(",", displayText.length - 1)) {
+        // Plus cannot be entered when displayText is empty or after "(%/×-+,".
+        if (/^$|[(%/×\-+,]$/.test(displayText))
           break;
-        }
         
         setDisplayText(displayText + "+");
         break;
@@ -220,8 +185,8 @@ export default function App() {
 
       //#region ,'s entered.
       case "comma":
-        // Comma cannot be entered when displayText is empty or after ",()%/×\-+", also a number can have only one comma.
-        if (/^$|([,()%/×\-+]|\d,\d+)(?!.*[()%/×\-+\d])/.test(displayText))
+        // Comma cannot be entered when displayText is empty or after "()%/×-+,", also a number can have only one comma.
+        if (/^$|([()%/×\-+,]|\d,\d+)(?!.*[()%/×\-+\d])/.test(displayText))
           break;
 
         setDisplayText(displayText + ",");
@@ -230,9 +195,10 @@ export default function App() {
 
       //#region ='s entered.
       case "equally":
-        if (displayText === "" || displayText[displayText.length - 1] === ",") {
+        // Equally symbol cannot be entered when displayText is empty, after "(%/×-+," or when amount of ( and ) aren't the same.
+        if (/^$|[(%/×\-+,]$/.test(displayText) ||
+          displayText.split("(").length - displayText.split(")").length !== 0)
           break;
-        }
         
         setDisplayText(eval(displayText.replace("×", "*")
           .replace(",", "."))
@@ -257,9 +223,9 @@ export default function App() {
       <CalcDisplay text={displayText} />
       <CalcBtns
         onClick={handleClick}
-        isTextDisplay={displayText.length > 0}
-        isACommaAtTheEnd={displayText[displayText.length - 1] === ","}
-        isOnlyZero={displayText === "0"}
+        isTextDisplay={/*displayText.length > 0*/ true}
+        isACommaAtTheEnd={/*displayText[displayText.length - 1] === ","*/ false}
+        isOnlyZero={/*displayText === "0"*/ false}
       />
     </div>
   );
