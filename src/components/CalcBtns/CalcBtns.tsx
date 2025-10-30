@@ -3,11 +3,14 @@ import css from "./CalcBtns.module.css";
 interface CalcBtnsProps {
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
     isTextDisplay: boolean,
-    isACommaAtTheEnd: boolean,
-    isOnlyZero: boolean
+    isANumberJustZero: boolean,
+    isSomeSpecialSymbolAtTheEnd: boolean,
+    isAmountOfBracketsTheSame: boolean,
+    isMinusDisabled: boolean,
+    isCommaDisabled: boolean
 }
 
-export default function CalcBtns({ onClick, isTextDisplay, isACommaAtTheEnd, isOnlyZero }: CalcBtnsProps) {
+export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, isSomeSpecialSymbolAtTheEnd, isAmountOfBracketsTheSame, isMinusDisabled, isCommaDisabled }: CalcBtnsProps) {
     interface BtnProps {
         id: string,
         content: string,
@@ -18,92 +21,92 @@ export default function CalcBtns({ onClick, isTextDisplay, isACommaAtTheEnd, isO
         {
             id: "left-bracket",
             content: "(",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: isSomeSpecialSymbolAtTheEnd
         },
         {
             id: "right-bracket",
             content: ")",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd || isAmountOfBracketsTheSame
         },
         {
             id: "module",
             content: "%",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd
         },
         {
             id: "divide",
             content: "/",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd
         },
         {
             id: "n7",
             content: "7",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "n8",
             content: "8",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "n9",
             content: "9",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "multiply",
             content: "×",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd
         },
         {
             id: "n4",
             content: "4",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "n5",
             content: "5",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "n6",
             content: "6",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "minus",
             content: "-",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: !isTextDisplay || isMinusDisabled
         },
         {
             id: "n1",
             content: "1",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "n2",
             content: "2",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "n3",
             content: "3",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "plus",
             content: "+",
-            isDisabled: isACommaAtTheEnd
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd
         },
         {
             id: "comma",
             content: ",",
-            isDisabled: false
+            isDisabled: !isTextDisplay || isCommaDisabled
         },
         {
             id: "n0",
             content: "0",
-            isDisabled: isOnlyZero
+            isDisabled: isANumberJustZero
         },
         {
             id: "delete",
@@ -113,7 +116,7 @@ export default function CalcBtns({ onClick, isTextDisplay, isACommaAtTheEnd, isO
         {
             id: "equally",
             content: "=",
-            isDisabled: isACommaAtTheEnd || !isTextDisplay
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd || !isAmountOfBracketsTheSame
         }
     ];
 

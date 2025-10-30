@@ -223,9 +223,12 @@ export default function App() {
       <CalcDisplay text={displayText} />
       <CalcBtns
         onClick={handleClick}
-        isTextDisplay={/*displayText.length > 0*/ true}
-        isACommaAtTheEnd={/*displayText[displayText.length - 1] === ","*/ false}
-        isOnlyZero={/*displayText === "0"*/ false}
+        isTextDisplay={displayText.length > 0}
+        isANumberJustZero={/(?<!,)\b0\b(?!,)/.test(displayText)}
+        isSomeSpecialSymbolAtTheEnd={/[(%/×\-+,]$/.test(displayText)}
+        isAmountOfBracketsTheSame={displayText.split("(").length - displayText.split(")").length === 0}
+        isMinusDisabled={/[%/×\-+,]$/.test(displayText)}
+        isCommaDisabled={/([()%/×\-+,]|\d,\d+)(?!.*[()%/×\-+\d])/.test(displayText)}
       />
     </div>
   );
