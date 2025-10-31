@@ -21,7 +21,7 @@ export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, is
         {
             id: "left-bracket",
             content: "(",
-            isDisabled: isSomeSpecialSymbolAtTheEnd
+            isDisabled: false
         },
         {
             id: "right-bracket",
