@@ -15,7 +15,7 @@ export default function App() {
       //#region 0's entered.
       case "n0":
         // 0 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "0");
@@ -25,7 +25,7 @@ export default function App() {
       //#region 1's entered.
       case "n1":
         // 1 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "1");
@@ -35,7 +35,7 @@ export default function App() {
       //#region 2's entered.
       case "n2":
         // 2 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "2");
@@ -45,7 +45,7 @@ export default function App() {
       //#region 3's entered.
       case "n3":
         // 3 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "3");
@@ -55,7 +55,7 @@ export default function App() {
       //#region 4's entered.
       case "n4":
         // 4 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "4");
@@ -65,7 +65,7 @@ export default function App() {
       //#region 5's entered.
       case "n5":
         // 5 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "5");
@@ -75,7 +75,7 @@ export default function App() {
       //#region 6's entered.
       case "n6":
         // 6 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "6");
@@ -85,7 +85,7 @@ export default function App() {
       //#region 7's entered.
       case "n7":
         // 7 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "7");
@@ -95,7 +95,7 @@ export default function App() {
       //#region 8's entered.
       case "n8":
         // 8 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "8");
@@ -105,7 +105,7 @@ export default function App() {
       //#region 9's entered.
       case "n9":
         // 9 cannot be entered when a next number is just 0 without a comma.
-        if (/(?<!,)\b0\b(?!,)/.test(displayText))
+        if (/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText))
           break;
 
         setDisplayText(displayText + "9");
@@ -224,7 +224,7 @@ export default function App() {
       <CalcBtns
         onClick={handleClick}
         isTextDisplay={displayText.length > 0}
-        isANumberJustZero={/(?<!,)\b0\b(?!,)/.test(displayText)}
+        isANumberJustZero={/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText)}
         isSomeSpecialSymbolAtTheEnd={/[(%/×\-+,]$/.test(displayText)}
         isAmountOfBracketsTheSame={displayText.split("(").length - displayText.split(")").length === 0}
         isMinusDisabled={/[%/×\-+,]$/.test(displayText)}
