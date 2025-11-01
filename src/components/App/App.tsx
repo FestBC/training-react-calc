@@ -6,7 +6,24 @@ import CalcDisplay from "../CalcDisplay/CalcDisplay";
 import CalcBtns from "../CalcBtns/CalcBtns";
 
 export default function App() {
-  const [displayText, setDisplayText] = useState("");
+  const [displayText, setDisplayText] = useState<string>("Replace eval.");
+
+  const handleSolve = (equation: string): string => {
+    const parsedEquation: string = equation
+      .replace(/×/g, "*")
+      .replace(/,/g, ".")
+      .replace(/\)\(/g, ")*(")
+      .replace(/(?<=\d)\(/g, "*(")
+      .replace(/\)(?=\d)/g, ")*");
+    
+    const solved: number = eval(parsedEquation);
+
+    const parsedSolved: string = solved
+      .toString()
+      .replace(/\./g, ",");
+    
+    return parsedSolved;
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     switch ((event.target as HTMLButtonElement).id) {
@@ -199,11 +216,8 @@ export default function App() {
         if (/^$|[(%/×\-+,]$/.test(displayText) ||
           displayText.split("(").length - displayText.split(")").length !== 0)
           break;
-        
-        setDisplayText(eval(displayText.replace("×", "*")
-          .replace(",", "."))
-            .toString()
-            .replace(".", ","));
+
+        setDisplayText(handleSolve(displayText));
         break;
       //#endregion
 
