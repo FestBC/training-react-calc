@@ -76,7 +76,7 @@ export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, is
         {
             id: "minus",
             content: "-",
-            isDisabled: !isTextDisplay || isMinusDisabled
+            isDisabled: isMinusDisabled
         },
         {
             id: "n1",
