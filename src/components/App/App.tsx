@@ -200,6 +200,9 @@ export default function App() {
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    // Logs.
+    console.log(`CLICKED\n${(event.target as HTMLButtonElement).id}`);
+
     switch ((event.target as HTMLButtonElement).id) {
       //#region Numbers.
 
@@ -402,9 +405,6 @@ export default function App() {
         setDisplayText("");
       //#endregion
     }
-
-    // Logs.
-    console.log(`CLICKED\n${(event.target as HTMLButtonElement).id}`);
   }
 
   return (
