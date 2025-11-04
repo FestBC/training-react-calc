@@ -6,82 +6,142 @@ import CalcDisplay from "../CalcDisplay/CalcDisplay";
 import CalcBtns from "../CalcBtns/CalcBtns";
 
 export default function App() {
-  const [displayText, setDisplayText] = useState<string>("Do something with wrong calculations that appeared due to the order.");
+  const [displayText, setDisplayText] = useState<string>("");
 
   const handleMultiply = (expression: string): string => {
     // Matches any "a*b*...".
-    const matchedOnes: string[] | null = expression.match(/-?\d+(\.\d+)?(\*-?\d+(\.\d+)?)+/g);
+    const matchedOnes: string[] | null = expression.match(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(\*-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/g);
     // Checks if there's any match.
     if (matchedOnes)
-      // Multiplies. Are you afraid of this code below that was made due to my laziness to make additional variables? :D
-      for (const matchedOne of matchedOnes)
-        // Replaces every "a*b*..." into multiplied "a*b*...", that was made by splitted "a*b*..." by "*" (array ["a", "b", ...]) and then reduce method multiplies each other of them.
-        expression = expression.replace(/-?\d+(\.\d+)?(\*-?\d+(\.\d+)?)+/, matchedOne.split("*").reduce((prev, cur) => String(Number(prev) * Number(cur)))); // 🫣
+      // Replaces the 1'st "a*b*..." into multiplied "a*b*...", that was made by splitted "a*b*..." by "*" (array ["a", "b", ...]) and then reduce method multiplies each other of them.
+      // Are you afraid of this code below that was made due to my laziness to make additional variables? :D
+      expression = expression.replace(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(\*-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/, matchedOnes[0].split("*").reduce((prev, cur) => {
+        const calculated: string = String(Number(prev) * Number(cur));
+        // Logs.
+        console.log(`MULTIPLYING\n${prev} * ${cur} = ${calculated}`);
+        return calculated;
+      })); // 🫣
+
     return expression;
   };
 
   const handleDivide = (expression: string): string => {
     // Matches any "a/b/...".
-    const matchedOnes: string[] | null = expression.match(/-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)+/g);
+    const matchedOnes: string[] | null = expression.match(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(\/-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/g);
     // Checks if there's any match.
     if (matchedOnes)
-      // Divides.
-      for (const matchedOne of matchedOnes)
-        // Replaces every "a/b/..." into divided "a/b/...", that was made by splitted "a/b/..." by "/" (array ["a", "b", ...]) and then reduce method divides each other of them.
-        expression = expression.replace(/-?\d+(\.\d+)?(\/-?\d+(\.\d+)?)+/, matchedOne.split("/").reduce((prev, cur) => String(Number(prev) / Number(cur)))); // 🫣
+      // Replaces the 1'st "a/b/..." into divided "a/b/...", that was made by splitted "a/b/..." by "/" (array ["a", "b", ...]) and then reduce method divides each other of them.
+      expression = expression.replace(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(\/-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/, matchedOnes[0].split("/").reduce((prev, cur) => {
+        const calculated: string = String(Number(prev) / Number(cur));
+        // Logs.
+        console.log(`DIVIDING\n${prev} / ${cur} = ${calculated}`);
+        return calculated;
+      })); // 🫣
+    
     return expression;
   };
 
   const handleMod = (expression: string): string => {
     // Matches any "a%b%...".
-    const matchedOnes: string[] | null = expression.match(/-?\d+(\.\d+)?(%-?\d+(\.\d+)?)+/g);
+    const matchedOnes: string[] | null = expression.match(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(%-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/g);
     // Checks if there's any match.
     if (matchedOnes)
-      // Mods.
-      for (const matchedOne of matchedOnes)
-        // Replaces every "a%b%..." into modded "a%b%...", that was made by splitted "a%b%..." by "%" (array ["a", "b", ...]) and then reduce method mods each other of them.
-        expression = expression.replace(/-?\d+(\.\d+)?(%-?\d+(\.\d+)?)+/, matchedOne.split("%").reduce((prev, cur) => String(Number(prev) % Number(cur)))); // 🫣
+      // Replaces the 1'st "a%b%..." into modded "a%b%...", that was made by splitted "a%b%..." by "%" (array ["a", "b", ...]) and then reduce method mods each other of them.
+      expression = expression.replace(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(%-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/, matchedOnes[0].split("%").reduce((prev, cur) => {
+        const calculated: string = String(Number(prev) % Number(cur));
+        // Logs.
+        console.log(`MODDING\n${prev} % ${cur} = ${calculated}`);
+        return calculated;
+      })); // 🫣
+
     return expression;
   };
 
   const handleAdd = (expression: string): string => {
     // Matches any "a+b+...".
-    const matchedOnes: string[] | null = expression.match(/-?\d+(\.\d+)?(\+-?\d+(\.\d+)?)+/g);
+    const matchedOnes: string[] | null = expression.match(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(\+-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/g); // 🫣
     // Checks if there's any match.
     if (matchedOnes)
-      // Adds.
-      for (const matchedOne of matchedOnes)
-        // Replaces every "a+b+..." into added "a+b+...", that was made by splitted "a+b+..." by "+" (array ["a", "b", ...]) and then reduce method adds each other of them.
-        expression = expression.replace(/-?\d+(\.\d+)?(\+-?\d+(\.\d+)?)+/, matchedOne.split("+").reduce((prev, cur) => String(Number(prev) + Number(cur)))); // 🫣
+      // Replaces the 1'st "a+b+..." into added "a+b+...", that was made by splitted "a+b+..." by /(?<!e)\+/ (array ["a", "b", ...]) and then reduce method adds each other of them.
+      expression = expression.replace(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(\+-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/, matchedOnes[0].split(/(?<!e)\+/).reduce((prev, cur) => {
+        const calculated: string = String(Number(prev) + Number(cur));
+        // Logs.
+        console.log(`ADDING\n${prev} + ${cur} = ${calculated}`);
+        return calculated;
+      })); // 🫣
+
     return expression;
   };
 
   const handleSubtract = (expression: string): string => {
     // Matches any "a-b-...".
-    const matchedOnes: string[] | null = expression.match(/-?\d+(\.\d+)?(--?\d+(\.\d+)?)+/g);
+    const matchedOnes: string[] | null = expression.match(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(--?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/g); // 🫣
     // Checks if there's any match.
     if (matchedOnes)
-      // Subtracts.
-      for (const matchedOne of matchedOnes)
-        // Replaces every "a-b-..." into subtracted "a-b-...", that was made by splitted "a-b-..." by "-" (array ["a", "b", ...]) and then reduce method subtracts each other of them.
-        expression = expression.replace(/-?\d+(\.\d+)?(--?\d+(\.\d+)?)+/, matchedOne.split("-").reduce((prev, cur) => String(Number(prev) - Number(cur)))); // 🫣
+      // Replaces the 1'st "a-b-..." into subtracted "a-b-...", that was made by splitted "a-b-..." by /(?<![e-]|^)-/ (array ["a", "b", ...]) and then reduce method subtracts each other of them.
+      expression = expression.replace(/((-?\d+(\.\d+)?e)\+?)?-?\d+(\.\d+)?(--?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+/, matchedOnes[0].split(/(?<![e-]|^)-/).reduce((prev, cur) => {
+        // Checks on "a--b".
+        if (cur[0] === "-") {
+          const calculated: string = String(Number(prev) + Number(cur) * -1);
+          // Logs.
+          console.log(`SUBTRACTING\n${prev} - ${cur} = ${calculated}`);
+          // Returns "a+b".
+          return calculated;
+        }
+        const calculated: string = String(Number(prev) - Number(cur));
+        // Logs.
+        console.log(`SUBTRACTING\n${prev} - ${cur} = ${calculated}`);
+        return calculated;
+      })); // 🫣
+
     return expression;
   };
 
-  const handleSolveInBrackets = (expression: string): string => {
-    // Matches any "(a...)*..." excluding brackets in brackets.
-    const matchedOnes: string[] | null = expression.match(/(?<=\()-?\d+(\.\d+)?(([%/*\-+]\d+(\.\d+)?)+)?(?=\))/g);
+  const handleCalculateInParentheses = (expression: string): string => {
+    // Matches any "a..." of "(a...)" excluding parentheses, that include parentheses.
+    const matchedOnes: string[] | null = expression.match(/(?<=\()-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?(([%/*\-+]-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+)?(?=\))/g);
     // Checks if there's any match.
-    if (matchedOnes)
-      // Solves.
-      for (const matchedOne of matchedOnes) {
-        // Replaces every "(a...)" into solved number, that was made via content of "(a...)" ("a...").
-        expression = expression.replace(/\(-?\d+(\.\d+)?(([%/*\-+]\d+(\.\d+)?)+)?\)/, handleSubtract(handleAdd(handleMod(handleDivide(handleMultiply(matchedOne)))))); // 🫣
-      };
+    if (matchedOnes) {
+      // Logs.
+      console.log(`CALCULATING IN PARENTHESES\n(${matchedOnes[0]})`);
+
+      //#region Calculates in order.
+
+      // Calculates expression until there are no multiplying, dividing or modding left.
+      while (/[*/%]/.test(matchedOnes[0])) {
+        const matchedOnesOfMatchedOne: string[] | null = matchedOnes[0].match(/[*/%]/g);
+
+        if ((matchedOnesOfMatchedOne as string[])[0] === "*")
+          matchedOnes[0] = handleMultiply(matchedOnes[0]);
+        if ((matchedOnesOfMatchedOne as string[])[0] === "/")
+          matchedOnes[0] = handleDivide(matchedOnes[0]);
+        if ((matchedOnesOfMatchedOne as string[])[0] === "%")
+          matchedOnes[0] = handleMod(matchedOnes[0]);
+      }
+      // Calculates expression until there are no adding or subtraction left.
+      while (/(?<!e)\+|(?<=\d)-/.test(matchedOnes[0])) {
+        const matchedOnesOfMatchedOne: string[] | null = matchedOnes[0].match(/(?<!e)\+|(?<=\d)-/g);
+
+        if ((matchedOnesOfMatchedOne as string[])[0] === "+")
+          matchedOnes[0] = handleAdd(matchedOnes[0]);
+        if ((matchedOnesOfMatchedOne as string[])[0] === "-")
+          matchedOnes[0] = handleSubtract(matchedOnes[0]);
+      }
+
+      //#endregion
+
+      // Replaces the 1'st "(a...)" into calculated number, that was made via its content ("a...").
+      expression = expression.replace(/\(-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?(([%/*\-+]-?\d+(\.\d+)?(e[+-]\d+(\.\d+)?)?)+)?\)/, matchedOnes[0]); // 🫣
+    };
+
     return expression;
   }
 
-  const handleSolve = (expression: string): string => {
+  const handleCalculate = (expression: string): string => {
+    // Logs.
+    console.log(`EXPRESSION\n${expression}`);
+
+    // Parses.
     let parsedExpression: string = expression
       .replace(/×/g, "*")
       .replace(/,/g, ".")
@@ -90,15 +150,53 @@ export default function App() {
       .replace(/\)(?=\d)/g, ")*")
       .replace(/-\(-/g, "+(");
 
-    // Does calculations.
-    while (/\(/.test(parsedExpression)) {
-      parsedExpression = handleSolveInBrackets(parsedExpression);
-    }
-    const solved: string = handleSubtract(handleAdd(handleMod(handleDivide(handleMultiply(parsedExpression))))) // 🫣
-      .toString()
-      .replace(/\./g, ",");
+    // Logs.
+    console.log(`PARSED EXPRESSION\n${parsedExpression}`);
     
-    return solved;
+    //#region Calculates in order.
+
+    // Calculates expressions in parentheses until there are no parentheses left.
+    while (/\(/.test(parsedExpression)) {
+      // Logs.
+      console.log(`PARENTHESES LEFT\n${parsedExpression}`);
+
+      parsedExpression = handleCalculateInParentheses(parsedExpression);
+    }
+    // Calculates expression until there are no multiplying, dividing or modding left.
+    while (/[*/%]/.test(parsedExpression)) {
+      // Logs.
+      console.log(`MULTIPLYING, DIVIDING OR MODDING LEFT\n${parsedExpression}`);
+
+      const matchedOnes: string[] | null = parsedExpression.match(/[*/%]/g);
+      
+      if ((matchedOnes as string[])[0] === "*")
+        parsedExpression = handleMultiply(parsedExpression);
+      if ((matchedOnes as string[])[0] === "/")
+        parsedExpression = handleDivide(parsedExpression);
+      if ((matchedOnes as string[])[0] === "%")
+        parsedExpression = handleMod(parsedExpression);
+    }
+    // Calculates expression until there are no adding or subtraction left.
+    while (/(?<!e)\+|(?<=\d)-/.test(parsedExpression)) {
+      // Logs.
+      console.log(`ADDING OR SUBTRACTING LEFT\n${parsedExpression}`);
+
+      const matchedOnes: string[] | null = parsedExpression.match(/(?<!e)\+|(?<=\d)-/g);
+
+      if ((matchedOnes as string[])[0] === "+")
+        parsedExpression = handleAdd(parsedExpression);
+      if ((matchedOnes as string[])[0] === "-")
+        parsedExpression = handleSubtract(parsedExpression);
+    }
+
+    // Logs.
+    console.log(`CALCULATION COMPLETED\n${parsedExpression}`);
+
+    //#endregion
+    
+    // Returns calculated.
+    return parsedExpression
+      .replace(/\./g, ",");
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -210,14 +308,14 @@ export default function App() {
       //#region Symbols.
 
       //#region ('s entered.
-      case "left-bracket":
+      case "left-parenthesis":
         setDisplayText(displayText + "(");
         break;
       //#endregion
 
       //#region )'s entered.
-      case "right-bracket":
-        // Right bracket cannot be entered when displayText is empty, after "(%/×-+," or when amount of ( and ) are the same.
+      case "right-parenthesis":
+        // Right parenthesis cannot be entered when displayText is empty, after "(%/×-+," or when amount of ( and ) are the same.
         if (/^$|[(%/×\-+,]$/.test(displayText) ||
           displayText.split("(").length - displayText.split(")").length === 0)
           break;
@@ -293,7 +391,7 @@ export default function App() {
           displayText.split("(").length - displayText.split(")").length !== 0)
           break;
 
-        setDisplayText(handleSolve(displayText));
+        setDisplayText(handleCalculate(displayText));
         break;
       //#endregion
 
@@ -305,7 +403,8 @@ export default function App() {
       //#endregion
     }
 
-    console.log((event.target as HTMLButtonElement).id);
+    // Logs.
+    console.log(`CLICKED\n${(event.target as HTMLButtonElement).id}`);
   }
 
   return (
@@ -316,7 +415,7 @@ export default function App() {
         isTextDisplay={displayText.length > 0}
         isANumberJustZero={/(?<!,)\b0\b(?![()%/×\-+,])/.test(displayText)}
         isSomeSpecialSymbolAtTheEnd={/[(%/×\-+,]$/.test(displayText)}
-        isAmountOfBracketsTheSame={displayText.split("(").length - displayText.split(")").length === 0}
+        isAmountOfParenthesesTheSame={displayText.split("(").length - displayText.split(")").length === 0}
         isMinusDisabled={/[%/×\-+,]$/.test(displayText)}
         isCommaDisabled={/([()%/×\-+,]|\d,\d+)(?!.*[()%/×\-+\d])/.test(displayText)}
       />

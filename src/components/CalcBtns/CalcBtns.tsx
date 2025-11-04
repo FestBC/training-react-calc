@@ -5,12 +5,12 @@ interface CalcBtnsProps {
     isTextDisplay: boolean,
     isANumberJustZero: boolean,
     isSomeSpecialSymbolAtTheEnd: boolean,
-    isAmountOfBracketsTheSame: boolean,
+    isAmountOfParenthesesTheSame: boolean,
     isMinusDisabled: boolean,
     isCommaDisabled: boolean
 }
 
-export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, isSomeSpecialSymbolAtTheEnd, isAmountOfBracketsTheSame, isMinusDisabled, isCommaDisabled }: CalcBtnsProps) {
+export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, isSomeSpecialSymbolAtTheEnd, isAmountOfParenthesesTheSame, isMinusDisabled, isCommaDisabled }: CalcBtnsProps) {
     interface BtnProps {
         id: string,
         content: string,
@@ -19,14 +19,14 @@ export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, is
 
     const btns: BtnProps[] = [
         {
-            id: "left-bracket",
+            id: "left-parenthesis",
             content: "(",
             isDisabled: false
         },
         {
-            id: "right-bracket",
+            id: "right-parenthesis",
             content: ")",
-            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd || isAmountOfBracketsTheSame
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd || isAmountOfParenthesesTheSame
         },
         {
             id: "module",
@@ -116,7 +116,7 @@ export default function CalcBtns({ onClick, isTextDisplay, isANumberJustZero, is
         {
             id: "equally",
             content: "=",
-            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd || !isAmountOfBracketsTheSame
+            isDisabled: !isTextDisplay || isSomeSpecialSymbolAtTheEnd || !isAmountOfParenthesesTheSame
         }
     ];
 
